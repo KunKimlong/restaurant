@@ -1,0 +1,39 @@
+staffs:{
+ 	id,
+	name,
+	gender,
+	date_of_birth,
+	join_date,
+	phone_number,
+	address,
+	email,
+	password,
+	image,
+	role(admin,employee,manager),
+	branch_id,
+	created_at,
+	updated_at	
+}
+
+branchs:{
+	id,
+	address,
+	name,
+	image,
+	phone_number,
+	created_day,
+	created_at,
+	update_at,
+}
+
+foods:{
+	id,
+	name,
+	price,
+	type,
+	image,
+	discount,
+	created_at,
+	updated_at,
+}
+
