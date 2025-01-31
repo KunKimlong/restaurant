@@ -77,40 +77,6 @@
         </div>
     </div>
 
-    <!-- Edit Modal -->
-    <div class="modal fade" id="updatePosition" tabindex="-1" role="dialog" aria-labelledby="modalUpdatePro"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-primary">
-                    <h6 class="modal-title">Updating Position Form</h6>
-                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ Route('position') }}" method="POST">
-                        @csrf
-                        <div class="row">
-                            <div class="col-12 my-2">
-                                <label for="update_id">Name:</label>
-                                <input type="hidden" name="id" id="update_id" class="form-control">
-                            </div>
-                            <div class="col-12 my-2">
-                                <label for="update_name">Name:</label>
-                                <input type="text" name="name" id="update_name" placeholder="Name" class="form-control">
-                            </div>
-                            <div class="col-12 my-2 d-flex justify-content-end">
-                                <button class="btn btn-success mx-2">Create</button>
-                                <button type="button" class="btn btn-danger mx-2" data-dismiss="modal">Cancel</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
     @if (Session::has('success'))
         <script>
             $(document).ready(function() {

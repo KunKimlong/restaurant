@@ -6,6 +6,7 @@
     <title>Ready Bootstrap Dashboard</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
         name='viewport' />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
@@ -99,6 +100,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{Route('branch.index')}}">
+                            <i class="bi bi-person-vcard-fill"></i>
+                            <p>Branches</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="tables.html">
                             <i class="la la-th"></i>
                             <p>Tables</p>
@@ -145,6 +152,24 @@
         </div>
     </div>
     </div>
+
+     <!-- Modal -->
+     <div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="modalUpdatePro"
+     aria-hidden="true">
+     <div class="modal-dialog modal-dialog-centered" role="document">
+         <div class="modal-content">
+             <div class="modal-header bg-primary">
+                 <h6 class="modal-title">Creating Branch Form</h6>
+                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                 </button>
+             </div>
+             <div class="modal-body">
+
+             </div>
+         </div>
+     </div>
+ </div>
 </body>
 
 <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
@@ -156,5 +181,6 @@
 <script src="{{ asset('assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js') }}"></script>
 <script src="{{ asset('assets/js/ready.min.js') }}"></script>
 <script src="{{ asset('assets/js/demo.js') }}"></script>
+<script src="{{ asset('assets/js/custom.js')}}"></script>
 
 </html>
