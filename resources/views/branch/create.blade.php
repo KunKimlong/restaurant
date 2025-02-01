@@ -2,12 +2,8 @@
     @csrf
     <div class="row">
         <div class="col-6 my-2">
-            <label for="name">Name:</label>
-            <input type="text" name="name" id="name" placeholder="Name" class="form-control">
-        </div>
-        <div class="col-6 my-2">
             <label for="number">Number:</label>
-            <input type="text" name="number" id="number" placeholder="Number"
+            <input type="text" name="number" id="number" value="{{$suggestNumber}}" placeholder="Number"
                 class="form-control">
         </div>
         <div class="col-6 my-2">
@@ -30,14 +26,14 @@
             <input type="text" name="district" id="district" placeholder="District"
                 class="form-control">
         </div>
-        <div class="col-12 my-2">
+        <div class="col-6 my-2">
             <label for="province">Province:</label>
             <select name="province" class="form-control" id="province">
                 <option value="">--- Select Province ----</option>
                 @forelse ($provinces as $province)
                     <option value="{{$province}}">{{$province}}</option>
                 @empty
-
+                    <option value="">No province</option>
                 @endforelse
             </select>
         </div>
@@ -45,7 +41,7 @@
             <label for="image">Image:</label>
             <input type="file" name="image" id="image" data-url="{{route('upload-branch-image')}}" placeholder="Image"
                 class="form-control d-none">
-            <input type="text" name="imageName" id="imageName">
+            <input type="hidden" name="imageName" id="imageName">
             <div class="p-2 border border-1 mt-2" style="width: fit-content !important;cursor: pointer;">
                 <img src="{{asset('assets/Images/upload.jpg')}}" alt="" id="chooseImage" style="background-color: blue" width="100px" height="80px">
             </div>

@@ -16,6 +16,7 @@
 
     <script src="{{ asset('assets/js/core/jquery.3.2.1.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -23,9 +24,7 @@
         <div class="main-header">
             <nav class="navbar navbar-header navbar-expand-lg">
                 <div class="container-fluid">
-                    <div class="col-2">
-
-                    </div>
+                    <div class="col-2"></div>
                     <form class="navbar-left navbar-form nav-search mr-md-3" action="">
                         <div class="input-group">
                             <input type="text" placeholder="Search ..." class="form-control">
@@ -106,10 +105,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="tables.html">
-                            <i class="la la-th"></i>
-                            <p>Tables</p>
-                            <span class="badge badge-count">6</span>
+                        <a href="{{Route('branch.index')}}">
+                            <i class="la la-cog"></i>
+                            <p>Setting</p>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -172,6 +170,7 @@
  </div>
 </body>
 
+@stack('scripts')
 <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
 <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js') }}"></script>

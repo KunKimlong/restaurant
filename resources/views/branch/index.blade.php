@@ -9,20 +9,20 @@
 @endsection
 
 @section('content')
-@if ($errors->any())
-    <div class="text-red-500">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+    @if ($errors->any())
+        <div class="text-red-500">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="card rounded rounded-5">
         <div class="card-header d-flex justify-between p-3">
             <div class="card-title">Branch</div>
             <div class="right">
-                <button class="btn btn-primary text-light" data-url="{{route('branch.create')}}" data-action="show">+ Create
+                <button class="btn btn-primary text-light" data-url="{{ route('branch.create') }}" data-action="show">+ Create
                     new branch</button>
             </div>
         </div>
@@ -44,10 +44,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($branches as $branch)
+                    @forelse ($branches as $index => $branch)
                         <tr>
-                            <td>{{ $branch->id }}</td>
-                            <td>{{ $branch->name }}</td>
+                            <td>{{ $branch->index + 1 }}</td>
+                            <td><img src="{{ asset('Store/' . $branch->image) }}" alt="" class="show-image-table">
+                            </td>
+                            <td>Resturant {{ convertToRoman($branch->number) }}</td>
                             <td>{{ $branch->number }}</td>
                             <td>{{ $branch->street }}</td>
                             <td>{{ $branch->village }}</td>
@@ -57,9 +59,11 @@
                             <td>{{ $branch->created_at }}</td>
                             <td>{{ $branch->updated_at }}</td>
                             <td>
-                                <button class="btn btn-warning" data-url="{{route('branch.edit',$branch->id)}}" data-action="show" update_id="{{ $branch->id }}">{!! iconEdit() !!}
+                                <button class="btn btn-warning" data-url="{{ route('branch.edit', $branch->id) }}"
+                                    data-action="show" update_id="{{ $branch->id }}">{!! iconEdit() !!}
                                     Edit</button>
-                                <button class="btn btn-danger">{!! iconRemove() !!}Delete</button>
+                                <button class="btn btn-danger" id="btn-remove"
+                                    data-remove-id="{{ $branch->id }}">{!! iconRemove() !!}Delete</button>
                             </td>
                         </tr>
                     @empty
@@ -110,3 +114,50 @@
         </script>
     @endif
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $(document).on('click', '#btn-remove', function() {
+                Swal.fire({
+                    title: "Are you sure to remove?",
+                    text: "You will be remove it and cannot get it back.",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#1d62f0",
+                    cancelButtonColor: "#ff646d ",
+                    confirmButtonText: "Yes",
+                    cancelButtonText: "No"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var id = $(this).data('remove-id');
+                        var url = "{{ route('branch.destroy', ':id') }}".replace(':id', id)
+                        $.ajax({
+                            method: 'DELETE',
+                            data: {
+                                _token: '{{ csrf_token() }}',
+                                id
+                            },
+                            url,
+                            success: function(res, textStatus, xhr) {
+                                if (xhr.status === 200) {
+                                    Swal.fire({
+                                        title: "Deleted!",
+                                        text: xhr.responseText,
+                                        icon: "success"
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: "Error!",
+                                        text: xhr.responseText,
+                                        icon: "error"
+                                    });
+                                }
+                            }
+                        })
+                    }
+                });
+            })
+        })
+    </script>
+@endpush

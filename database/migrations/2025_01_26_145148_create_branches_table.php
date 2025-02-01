@@ -14,7 +14,6 @@ return new class extends Migration
     {
         Schema::create('branches', function (Blueprint $table) {
             $table->id();
-            $table->string(Branch::NAME);
             $table->integer(Branch::NUMBER);
             $table->string(Branch::STREET)->nullable(true);;
             $table->string(Branch::VILLAGE)->nullable(true);

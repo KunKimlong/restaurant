@@ -9,7 +9,6 @@ class Branch extends Model
 {
     use HasFactory;
     public const ID = 'id';
-    public const NAME = 'name';
     public const NUMBER = 'number';
     public const STREET = 'street';
     public const VILLAGE = 'village';
@@ -23,7 +22,6 @@ class Branch extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        self::NAME,
         self::NUMBER,
         self::STREET,
         self::VILLAGE,

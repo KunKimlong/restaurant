@@ -30,7 +30,8 @@ class BranchController extends Controller
     {
         $branch = new Branch();
         $provinces = $branch->getAllProvinces();
-        return view('branch.create',compact('provinces'));
+        $suggestNumber = Branch::count()+1;
+        return view('branch.create',compact('provinces','suggestNumber'));
     }
 
     /**
@@ -39,7 +40,6 @@ class BranchController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "name" => "required|string",
             "number" => "required|integer",
             "imageName" => "required|string"
         ]);
@@ -55,7 +55,6 @@ class BranchController extends Controller
 
         try{
             Branch::create([
-                Branch::NAME => $request->name,
                 Branch::NUMBER => $request->number,
                 Branch::STREET => $request->street,
                 Branch::VILLAGE => $request->village,
@@ -98,9 +97,16 @@ class BranchController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Branch $branch)
+    public function destroy($id)
     {
-        //
+        $branch = Branch::findOrFail($id);
+        if($branch){
+            // $branch->delete();
+            return response("Branch remove success",200);
+        }
+        else{
+            return response("Branch not found",404);
+        }
     }
 
     public function uploadAjax(Request $request){

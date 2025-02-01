@@ -113,3 +113,8 @@
     max-height: 200px;
     object-fit: cover;
 }
+
+.show-image-table{
+    max-width: 150px;
+    max-height: 100px;
+}

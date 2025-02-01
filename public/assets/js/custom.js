@@ -46,9 +46,6 @@ $(document).ready(function(){
             success:function(res){
                 $('#preview').html('<img src="' + res + '">');
                 //generate file name
-
-                console.log(res);
-
                 var fileName = res.replace("/temporary/","");
                 $('#imageName').val(fileName);
             }
