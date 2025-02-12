@@ -13,15 +13,15 @@
         <div class="card-header d-flex justify-between p-3">
             <div class="card-title">Position</div>
             <div class="right">
-                <a class="btn btn-primary text-light" href="#" data-toggle="modal" data-target="#createPosition">+ Create
-                    new Position</a>
+                <button class="btn btn-primary text-light" data-url="{{ route('position.create') }}" data-action="show">+ Create
+                    new Position</button>
             </div>
         </div>
         <div class="card-body">
             <table class="table text-center">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>N<sup>o</sup></th>
                         <th>Name</th>
                         <th>Created Date</th>
                         <th>Modify Date</th>
@@ -29,15 +29,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($positions as $position)
+                    @forelse ($positions as $index => $position)
                         <tr>
-                            <td>{{ $position->id }}</td>
+                            <td>{{ $index+1 }}</td>
                             <td>{{ $position->name }}</td>
                             <td>{{ $position->created_at }}</td>
                             <td>{{ $position->updated_at }}</td>
                             <td>
-                                <button class="btn btn-warning" id="btn-update" data-toggle="modal" data-target="#updatePosition" update_id="{{$position->id}}">{!! iconEdit() !!} Edit</button>
-                                <button class="btn btn-danger">{!! iconRemove() !!}Delete</button>
+                                <button class="btn btn-warning" id="btn-update" data-url="{{ route('position.edit',$position->id) }}" data-action="show">{!! iconEdit() !!} Edit</button>
+                                <button class="btn btn-danger" id="btn-remove">{!! iconRemove() !!}Delete</button>
                             </td>
                         </tr>
                     @empty
@@ -45,35 +45,6 @@
                     @endforelse
                 </tbody>
             </table>
-        </div>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="createPosition" tabindex="-1" role="dialog" aria-labelledby="modalUpdatePro"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-primary">
-                    <h6 class="modal-title">Creating Position Form</h6>
-                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ Route('position.store') }}" method="POST">
-                        @csrf
-                        <div class="row">
-                            <div class="col-12 my-2">
-                                <label for="name">Name:</label>
-                                <input type="text" name="name" id="name" placeholder="Name" class="form-control">
-                            </div>
-                            <div class="col-12 my-2 d-flex justify-content-end">
-                                <button class="btn btn-success mx-2">Create</button>
-                                <button type="button" class="btn btn-danger mx-2" data-dismiss="modal">Cancel</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -118,3 +89,85 @@
         </script>
     @endif
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $(document).on('click', '#btn-remove', function() {
+                Swal.fire({
+                    title: "Are you sure to remove?",
+                    text: "You will be remove it and cannot get it back.",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#1d62f0",
+                    cancelButtonColor: "#ff646d ",
+                    confirmButtonText: "Yes",
+                    cancelButtonText: "No"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var id = $(this).data('remove-id');
+                        var url = "{{ route('branch.destroy', ':id') }}".replace(':id', id)
+                        $.ajax({
+                            method: 'DELETE',
+                            data: {
+                                _token: '{{ csrf_token() }}',
+                                id
+                            },
+                            url,
+                            success: function(res, textStatus, xhr) {
+                                var table = $('#table-show');
+                                var tbdoy = table.find('tbody');
+                                var branches = res.branches;
+                                table.empty(); //clear table
+                                branches.forEach((branch, i) => {
+                                    var updateUrl =
+                                        '{{ route('branch.edit', ':id') }}'
+                                        .replace(':id', branch.id);
+                                    var romanNumber = convertToRoman(branch
+                                        .number);
+                                    console.log(romanNumber);
+                                    var txt = `
+                                        <tr>
+                                            <td>${i+1}</td>
+                                            <td><img src="{{ asset('Store/${branch.image}') }}" alt="" class="show-image-table">
+                                            </td>
+                                            <td>Resturant ${romanNumber}</td>
+                                            <td>${branch.number}</td>
+                                            <td>${branch.street}</td>
+                                            <td>${branch.village}</td>
+                                            <td>${branch.commune}</td>
+                                            <td>${branch.district}</td>
+                                            <td>${branch.province}</td>
+                                            <td>${branch.created_at}</td>
+                                            <td>${branch.updated_at}</td>
+                                            <td>
+                                                <button class="btn btn-warning" data-url="${updateUrl}"
+                                                    data-action="show" update_id="${branch.id}">{!! iconEdit() !!}
+                                                    Edit</button>
+                                                <button class="btn btn-danger" id="btn-remove"
+                                                    data-remove-id="${branch.id}">{!! iconRemove() !!}Delete</button>
+                                            </td>
+                                        </tr>
+                                    `;
+                                    table.append(txt);
+                                });
+                                if (xhr.status === 200) {
+                                    Swal.fire({
+                                        title: "Deleted!",
+                                        text: res.responseText,
+                                        icon: "success"
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: "Error!",
+                                        text: res.responseText,
+                                        icon: "error"
+                                    });
+                                }
+                            }
+                        })
+                    }
+                });
+            })
+        })
+    </script>
+@endpush

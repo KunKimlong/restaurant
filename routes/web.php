@@ -1,12 +1,14 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BranchController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PositionController;
-use App\Http\Controllers\StaffController;
 use App\Models\Branch;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\StaffController;
+use App\Http\Controllers\BranchController;
+use App\Http\Controllers\FoodController;
+use App\Http\Controllers\PositionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,3 +32,5 @@ Route::resource('position',PositionController::class);
 
 Route::resource('branch',BranchController::class);
 Route::post('/upload-branch-image',[BranchController::class,'uploadAjax'])->name('upload-branch-image');
+
+Route::resource('food',FoodController::class);

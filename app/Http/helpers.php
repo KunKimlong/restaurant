@@ -8,7 +8,7 @@
 if (! function_exists('formatToDate')) {
     function formatToDate($timestamp)
     {
-        return \Illuminate\Support\Carbon::parse($timestamp)->format('d-m-Y');
+        return \Illuminate\Support\Carbon::parse($timestamp)->toDateString();
     }
 }
 
@@ -52,7 +52,7 @@ if (! function_exists('convertToRoman')) {
             'IV' => 4,
             'I'  => 1
         ];
-
+        $num = intval($num);
         $roman = '';
         foreach ($map as $symbol => $value) {
             while ($num >= $value) {
@@ -61,5 +61,12 @@ if (! function_exists('convertToRoman')) {
             }
         }
         return $roman;
+    }
+}
+
+if(! function_exists('fullName')){
+    function fullName($first_name, $last_name, $gender){
+        $prefix = $gender=="Male"?"Mr.": "Ms.";
+        return $prefix.$first_name." ".$last_name;
     }
 }

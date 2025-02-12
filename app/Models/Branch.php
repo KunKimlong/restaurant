@@ -19,8 +19,6 @@ class Branch extends Model
     public const CREATED_AT = 'created_at';
     public const UPDATED_AT = 'updated_at';
 
-    public $timestamps = false;
-
     protected $fillable = [
         self::NUMBER,
         self::STREET,
@@ -61,6 +59,11 @@ class Branch extends Model
 
     public function getAllProvinces(){
         return $this->provinces;
+    }
+
+    public function staffs()
+    {
+        return $this->hasMany(Staff::class, self::ID);
     }
 
 }

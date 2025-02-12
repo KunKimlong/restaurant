@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Position;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -41,7 +42,7 @@ class PositionController extends Controller
 
         try{
             Position::create([
-                Position::NAME=>$request->name,
+                Position::NAME => $request->name,
             ]);
             return redirect()->route('position.index')->with('success','Position created');
         }catch(Exception $e){
@@ -61,17 +62,35 @@ class PositionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Position $position)
+    public function edit($id)
     {
-        //
+        $position = Position::findOrFail($id);
+        return view('position.update',compact('position'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Position $position)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'=>'required|string|min:5|max:100',
+        ]);
+        $position = Position::findOrFail($id);
+        if($position){
+            try{
+                $position->update([
+                    Position::NAME => $request->name,
+                ]);
+                return redirect()->route('position.index')->with('success','Position updated');
+            }catch(Exception $e){
+                return redirect()->route('position.index')->with('error','Server error while updating');
+            }
+        }else{
+            return redirect()->route('position.index')->with('error','Position not found');
+        }
+
+
     }
 
     /**

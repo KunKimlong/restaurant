@@ -27,10 +27,11 @@
             </div>
         </div>
         <div class="card-body">
-            <table class="table text-center">
+            <table class="table text-center" id="table-show">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>N<sup>o</sup></th>
+                        <th>Image</th>
                         <th>Name</th>
                         <th>Number</th>
                         <th>Street</th>
@@ -46,7 +47,7 @@
                 <tbody>
                     @forelse ($branches as $index => $branch)
                         <tr>
-                            <td>{{ $branch->index + 1 }}</td>
+                            <td>{{ $total + $index + 1 }}</td>
                             <td><img src="{{ asset('Store/' . $branch->image) }}" alt="" class="show-image-table">
                             </td>
                             <td>Resturant {{ convertToRoman($branch->number) }}</td>
@@ -71,6 +72,11 @@
                     @endforelse
                 </tbody>
             </table>
+            <ul class="page">
+                @for ($i=1;$i<=$pages;$i++)
+                    <li><a href="?page={{$i}}">{{$i}}</a></li>
+                @endfor
+            </ul>
         </div>
     </div>
 
@@ -118,6 +124,73 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+            function convertToRoman(num) {
+                const map = [{
+                        symbol: 'M',
+                        value: 1000
+                    },
+                    {
+                        symbol: 'CM',
+                        value: 900
+                    },
+                    {
+                        symbol: 'D',
+                        value: 500
+                    },
+                    {
+                        symbol: 'CD',
+                        value: 400
+                    },
+                    {
+                        symbol: 'C',
+                        value: 100
+                    },
+                    {
+                        symbol: 'XC',
+                        value: 90
+                    },
+                    {
+                        symbol: 'L',
+                        value: 50
+                    },
+                    {
+                        symbol: 'XL',
+                        value: 40
+                    },
+                    {
+                        symbol: 'X',
+                        value: 10
+                    },
+                    {
+                        symbol: 'IX',
+                        value: 9
+                    },
+                    {
+                        symbol: 'V',
+                        value: 5
+                    },
+                    {
+                        symbol: 'IV',
+                        value: 4
+                    },
+                    {
+                        symbol: 'I',
+                        value: 1
+                    }
+                ];
+
+                num = parseInt(num);
+                let roman = '';
+
+                map.forEach(item => {
+                    while (num >= item.value) {
+                        roman += item.symbol;
+                        num -= item.value;
+                    }
+                });
+
+                return roman;
+            }
             $(document).on('click', '#btn-remove', function() {
                 Swal.fire({
                     title: "Are you sure to remove?",
@@ -140,16 +213,51 @@
                             },
                             url,
                             success: function(res, textStatus, xhr) {
+                                var table = $('#table-show');
+                                var tbdoy = table.find('tbody');
+                                var branches = res.branches;
+                                tbdoy .empty(); //clear table
+                                branches.forEach((branch, i) => {
+                                    var updateUrl =
+                                        '{{ route('branch.edit', ':id') }}'
+                                        .replace(':id', branch.id);
+                                    var romanNumber = convertToRoman(branch
+                                        .number);
+                                    var txt = `
+                                        <tr>
+                                            <td>${i+1}</td>
+                                            <td><img src="{{ asset('Store/${branch.image}') }}" alt="" class="show-image-table">
+                                            </td>
+                                            <td>Resturant ${romanNumber}</td>
+                                            <td>${branch.number}</td>
+                                            <td>${branch.street}</td>
+                                            <td>${branch.village}</td>
+                                            <td>${branch.commune}</td>
+                                            <td>${branch.district}</td>
+                                            <td>${branch.province}</td>
+                                            <td>${branch.created_at}</td>
+                                            <td>${branch.updated_at}</td>
+                                            <td>
+                                                <button class="btn btn-warning" data-url="${updateUrl}"
+                                                    data-action="show" update_id="${branch.id}">{!! iconEdit() !!}
+                                                    Edit</button>
+                                                <button class="btn btn-danger" id="btn-remove"
+                                                    data-remove-id="${branch.id}">{!! iconRemove() !!}Delete</button>
+                                            </td>
+                                        </tr>
+                                    `;
+                                    table.append(txt);
+                                });
                                 if (xhr.status === 200) {
                                     Swal.fire({
                                         title: "Deleted!",
-                                        text: xhr.responseText,
+                                        text: res.responseText,
                                         icon: "success"
                                     });
                                 } else {
                                     Swal.fire({
                                         title: "Error!",
-                                        text: xhr.responseText,
+                                        text: res.responseText,
                                         icon: "error"
                                     });
                                 }

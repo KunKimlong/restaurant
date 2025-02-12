@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
-use Hamcrest\SelfDescribing;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use PDO;
 
 class Staff extends Model
 {
     use HasFactory;
     public const ID = 'id';
-    public const FISRT_NAME = 'fisrt_name';
+    public const FISRT_NAME = 'first_name';
     public const LAST_NAME = 'last_name';
     public const GENDER = 'gender';
     public const EMAIL = 'email';
@@ -27,6 +27,7 @@ class Staff extends Model
     public const CREATED_AT = 'created_at';
     public const UPDATED_AT = 'updated_at';
 
+    protected $table = 'staffs';
     protected $fillable = [
         self::FISRT_NAME,
         self::LAST_NAME,
@@ -43,4 +44,16 @@ class Staff extends Model
         self::BRANCH_ID,
         self::DATE_OF_BIRTH
     ];
+
+    public function branch(){
+        return $this->belongsTo(Branch::class,self::BRANCH_ID);
+    }
+    public function position(){
+        return $this->belongsTo(position::class,self::POSITION_ID);
+    }
+
+    public function fullName(){
+        $prefix = self::GENDER == "Male"?"Mr. ": "Ms. ";
+        return $prefix.self::FISRT_NAME." ".self::LAST_NAME;
+    }
 }

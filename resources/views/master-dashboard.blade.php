@@ -6,12 +6,12 @@
     <title>Ready Bootstrap Dashboard</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
         name='viewport' />
+    <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="{{ asset('assets/css/ready.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <script src="{{ asset('assets/js/core/jquery.3.2.1.min.js') }}"></script>
@@ -87,54 +87,53 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{Route('staff.index')}}">
+                        <a class="" data-toggle="collapse" href="#staffshow" aria-expanded="true">
                             <i class="bi bi-person-square"></i>
-                            <p>Staffs</p>
+                            <p>Staff</p>
+                            <span style="margin-left: auto;" class="caret"></span>
+                        </a>
+                        <div class="clearfix"></div>
+
+                        <div class="collapse in" id="staffshow" aria-expanded="true" style="">
+                            <ul class="nav">
+                                <li>
+                                    <a href="{{route('staff.index')}}">
+                                        <i class="bi bi-person-square"></i>
+                                        <span class="link-collapse">View Staff</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{route('staff.create')}}">
+                                        <i class="bi bi-person-square"></i>
+                                        <span class="link-collapse">Add staff</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ Route('food.index') }}">
+                            <i class="la la-cog"></i>
+                            <p>Food</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{Route('position.index')}}">
+                        <a href="{{ Route('position.index') }}">
                             <i class="bi bi-person-vcard-fill"></i>
                             <p>Positions</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{Route('branch.index')}}">
+                        <a href="{{ Route('branch.index') }}">
                             <i class="bi bi-person-vcard-fill"></i>
                             <p>Branches</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{Route('branch.index')}}">
+                        <a href="{{ Route('branch.index') }}">
                             <i class="la la-cog"></i>
                             <p>Setting</p>
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="notifications.html">
-                            <i class="la la-bell"></i>
-                            <p>Notifications</p>
-                            <span class="badge badge-success">3</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="typography.html">
-                            <i class="la la-font"></i>
-                            <p>Typography</p>
-                            <span class="badge badge-danger">25</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="icons.html">
-                            <i class="la la-fonticons"></i>
-                            <p>Icons</p>
-                        </a>
-                    </li>
-                    <li class="nav-item update-pro">
-                        <button data-toggle="modal" data-target="#modalUpdate">
-                            <i class="la la-hand-pointer-o"></i>
-                            <p>Update To Pro</p>
-                        </button>
                     </li>
                 </ul>
             </div>
@@ -151,23 +150,23 @@
     </div>
     </div>
 
-     <!-- Modal -->
-     <div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="modalUpdatePro"
-     aria-hidden="true">
-     <div class="modal-dialog modal-dialog-centered" role="document">
-         <div class="modal-content">
-             <div class="modal-header bg-primary">
-                 <h6 class="modal-title">Creating Branch Form</h6>
-                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                     <span aria-hidden="true">&times;</span>
-                 </button>
-             </div>
-             <div class="modal-body">
+    <!-- Modal -->
+    <div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="modalUpdatePro"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h6 class="modal-title">Creating Branch Form</h6>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
 
-             </div>
-         </div>
-     </div>
- </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 @stack('scripts')
@@ -180,6 +179,6 @@
 <script src="{{ asset('assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js') }}"></script>
 <script src="{{ asset('assets/js/ready.min.js') }}"></script>
 <script src="{{ asset('assets/js/demo.js') }}"></script>
-<script src="{{ asset('assets/js/custom.js')}}"></script>
+<script src="{{ asset('assets/js/custom.js') }}"></script>
 
 </html>

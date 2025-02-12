@@ -45,7 +45,7 @@
             <div class="p-2 border border-1 mt-2" style="width: fit-content !important;cursor: pointer;">
                 <img src="{{asset('assets/Images/upload.jpg')}}" alt="" id="chooseImage" style="background-color: blue" width="100px" height="80px">
             </div>
-            <div class="col-12" id="preview"></div>
+            <div class="col-12 p-0" id="preview"></div>
         </div>
         <div class="col-12 my-2 d-flex justify-content-end">
             <button class="btn btn-success mx-2">Create</button>
