@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
+use App\Models\Staff;
 use App\Models\Branch;
 use App\Models\Position;
-use App\Models\Staff;
-use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 
 class StaffController extends Controller
@@ -17,6 +19,9 @@ class StaffController extends Controller
      */
     public function index()
     {
+        if(Gate::denies('admin')){
+            return redirect()->route('staff.show',Auth::user()->id);
+        }
         $admin = Staff::where('role', 'admin')->first();
         $staffs = Staff::where('role', '<>', 'admin')->orderBy('id', 'DESC')->get();
         if ($admin) {

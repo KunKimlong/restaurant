@@ -39,14 +39,14 @@
                         <li class="nav-item dropdown">
                             <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"
                                 aria-expanded="false"> <img src="assets/img/profile.jpg" alt="user-img" width="36"
-                                    class="img-circle"><span>Kun Kimlong </span></span> </a>
+                                    class="img-circle"><span>{{Auth::user()->fullName()}}</span></span> </a>
                             <ul class="dropdown-menu dropdown-user">
                                 <li>
                                     <div class="user-box">
                                         <div class="u-img"><img src="assets/img/profile.jpg" alt="user"></div>
                                         <div class="u-text">
-                                            <h4>Hizrian</h4>
-                                            <p class="text-muted">hello@themekita.com</p><a href="profile.html"
+                                            <h4>{{Auth::user()->fullName()}}</h4>
+                                            <p class="text-muted">{{Auth::user()->email}}</p><a href="{{route('staff.show',Auth::user()->id)}}"
                                                 class="btn btn-rounded btn-danger btn-sm">View Profile</a>
                                         </div>
                                     </div>
@@ -130,7 +130,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ Route('branch.index') }}">
+                        <a href="{{ Route('show.company') }}">
                             <i class="la la-cog"></i>
                             <p>Setting</p>
                         </a>

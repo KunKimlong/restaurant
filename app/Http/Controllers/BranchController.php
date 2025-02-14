@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Models\Branch;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\File;
-
 class BranchController extends Controller
 {
     /**
@@ -14,6 +15,9 @@ class BranchController extends Controller
      */
     public function index(Request $request)
     {
+        if(Gate::denies('admin')){
+            abort(403,"You do not have permission in 14th February");
+        }
         $total =(($request->page??1)-1)*5;
         $branches = Branch::orderBy('id', 'DESC')->offset($total)->limit(5)->get();
         foreach ($branches as $branch) {

@@ -25,11 +25,11 @@
                         <div class="card-body">
                             <div class="form-group p-1">
                                 <label for="email">Email<span class="text-danger">*</span></label>
-                                <input type="email" class="form-control" id="email" placeholder="Email">
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Email">
                             </div>
                             <div class="form-group p-1">
                                 <label for="password">Password<span class="text-danger">*</span></label>
-                                <input type="password" class="form-control" id="password" placeholder="Password">
+                                <input type="password" name="password" class="form-control" id="password" placeholder="Password">
                             </div>
                             <div class="p-1">
                                 <button class="btn btn-success">Login</button>

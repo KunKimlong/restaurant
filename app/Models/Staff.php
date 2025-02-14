@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use PDO;
 
-class Staff extends Model
+class Staff extends Authenticatable
 {
     use HasFactory;
     public const ID = 'id';
@@ -53,7 +52,25 @@ class Staff extends Model
     }
 
     public function fullName(){
-        $prefix = self::GENDER == "Male"?"Mr. ": "Ms. ";
-        return $prefix.self::FISRT_NAME." ".self::LAST_NAME;
+        $prefix = $this->gender == "Male"?"Mr. ": "Ms. ";
+        return $prefix.$this->first_name." ".$this->last_name;
     }
+
+     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
 }
