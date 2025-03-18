@@ -42,4 +42,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/company', [CompanyController::class, 'index'])->name('show.company');
     Route::post('/company', [CompanyController::class, 'store'])->name('create.company');
+
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });

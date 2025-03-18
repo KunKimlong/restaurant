@@ -41,7 +41,7 @@
                             </td>
                             <td>{{fullName($staff->first_name, $staff->last_name, $staff->gender)}}</td>
                             <td>{{$staff->phone_number}}</td>
-                            <td>{{$staff->join_date}}</td>
+                            <td>{{$staff->join_date_date}}</td>
                             <td>{{$staff->position->name}}</td>
                             <td>Resturant {{convertToRoman($staff->branch->number)}}</td>
                             <td>

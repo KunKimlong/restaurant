@@ -20,7 +20,7 @@ class StaffController extends Controller
     public function index()
     {
         if(Gate::denies('admin')){
-            return redirect()->route('staff.show',Auth::user()->id);
+            return redirect()->route('staff.show', Auth::user()->id);
         }
         $admin = Staff::where('role', 'admin')->first();
         $staffs = Staff::where('role', '<>', 'admin')->orderBy('id', 'DESC')->get();

@@ -39,8 +39,8 @@
                                     <span class="card-title">Price: {{ $food->price }}$</span>
                                     <span class="card-title">Discount: {{ $food->discount }}%</span>
                                 </div>
-                                <h6 class="card-title">Created at: {{ $food->created_at }}</h6>
-                                <h6 class="card-title">Updated at: {{ $food->updated_at }}</h6>
+                                <h6 class="card-title">Created at: {{ $food->created_at_date }}</h6>
+                                <h6 class="card-title">Updated at: {{ $food->updated_at_date }}</h6>
                                 <button class="btn btn-warning" data-url="{{ route('food.edit', $food->id) }}"
                                     data-action="show" update_id="{{ $food->id }}">{!! iconEdit() !!}
                                     Edit</button>

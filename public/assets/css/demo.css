@@ -150,3 +150,12 @@ label{
 .card-title{
     font-size: 30px;
 }
+
+#table-show tbody *, #table-show thead *{
+    width: fit-content !important;
+    white-space: nowrap;
+}
+
+.card-body{
+    scrollbar-width: none;
+}

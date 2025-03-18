@@ -16,8 +16,8 @@ class PositionController extends Controller
     {
         $positions = Position::orderBy('id','DESC')->get();
         foreach($positions as $position){
-            $position->created_at = formatToDate($position->created_at);
-            $position->updated_at = formatToDate($position->updated_at);
+            $position->created_at_date = formatToDate($position->created_at);
+            $position->updated_at_date = formatToDate($position->updated_at);
         }
         return view('position.index',compact('positions'));
     }

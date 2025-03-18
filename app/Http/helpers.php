@@ -8,7 +8,7 @@
 if (! function_exists('formatToDate')) {
     function formatToDate($timestamp)
     {
-        return \Illuminate\Support\Carbon::parse($timestamp)->toDateString();
+        return date('d-m-Y',strtotime(convertTimeStampToString($timestamp)));
     }
 }
 
@@ -68,5 +68,11 @@ if(! function_exists('fullName')){
     function fullName($first_name, $last_name, $gender){
         $prefix = $gender=="Male"?"Mr.": "Ms.";
         return $prefix.$first_name." ".$last_name;
+    }
+}
+
+if(! function_exists('convertTimeStampToString')){
+    function convertTimeStampToString($timestamp){
+        return $timestamp ? $timestamp->toDateTimeString() : '';
     }
 }

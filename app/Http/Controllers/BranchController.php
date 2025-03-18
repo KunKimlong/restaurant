@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use Exception;
 use App\Models\Branch;
 use Illuminate\Http\Request;
@@ -20,13 +21,14 @@ class BranchController extends Controller
         }
         $total =(($request->page??1)-1)*5;
         $branches = Branch::orderBy('id', 'DESC')->offset($total)->limit(5)->get();
+        $company_name = Company::first()->name;
         foreach ($branches as $branch) {
-            $branch->created_at = formatToDate($branch->created_at);
-            $branch->updated_at = formatToDate($branch->updated_at);
+            $branch->created_at_date = formatToDate($branch->created_at);
+            $branch->updated_at_date = formatToDate($branch->updated_at);
         }
         $totalBranches = Branch::count();
         $pages = ceil($totalBranches/5);
-        return view('branch.index', compact('branches','pages','total'));
+        return view('branch.index', compact('branches','pages','total', 'company_name'));
     }
 
     /**

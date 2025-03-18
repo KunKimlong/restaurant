@@ -15,6 +15,10 @@ class FoodController extends Controller
     public function index()
     {
         $foods = Food::orderBy('id','DESC')->get();
+        foreach ($foods as $food) {
+            $food->created_at_date = formatToDate($food->created_at);
+            $food->updated_at_date = formatToDate($food->updated_at);
+        }
         return view('food.index',compact('foods'));
     }
 

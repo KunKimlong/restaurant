@@ -41,8 +41,10 @@ class CompanyController extends Controller
             if (!File::exists(public_path("Store"))) {
                 File::makeDirectory(public_path("Store"), 0755, true);
             }
-            if (File::move($temporary, $directory)) {
-                File::deleteDirectory(public_path("temporary"));
+            if(!File::exists($directory)){
+                if (File::move($temporary, $directory)) {
+                    File::deleteDirectory(public_path("temporary"));
+                }
             }
             $company->update([
                 Company::NAME => $request->name,

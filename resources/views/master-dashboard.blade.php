@@ -38,12 +38,12 @@
                     <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
                         <li class="nav-item dropdown">
                             <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"
-                                aria-expanded="false"> <img src="assets/img/profile.jpg" alt="user-img" width="36"
+                                aria-expanded="false"> <img src="{{asset('Store/'.Auth::user()->profile)}}" alt="user-img" width="36" height="36"
                                     class="img-circle"><span>{{Auth::user()->fullName()}}</span></span> </a>
                             <ul class="dropdown-menu dropdown-user">
                                 <li>
                                     <div class="user-box">
-                                        <div class="u-img"><img src="assets/img/profile.jpg" alt="user"></div>
+                                        <div class="u-img"><img src="{{asset('Store/'.Auth::user()->profile)}}" alt="user"></div>
                                         <div class="u-text">
                                             <h4>{{Auth::user()->fullName()}}</h4>
                                             <p class="text-muted">{{Auth::user()->email}}</p><a href="{{route('staff.show',Auth::user()->id)}}"
@@ -52,14 +52,10 @@
                                     </div>
                                 </li>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#"><i class="ti-user"></i> My Profile</a>
-                                <a class="dropdown-item" href="#"></i> My Balance</a>
-                                <a class="dropdown-item" href="#"><i class="ti-email"></i> Inbox</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#"><i class="ti-settings"></i> Account
-                                    Setting</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#"><i class="fa fa-power-off"></i> Logout</a>
+                                <form action="{{route('logout')}}" method="post">
+                                    @csrf
+                                    <button class="dropdown-item">Logout</button>
+                                </form>
                             </ul>
                         </li>
                     </ul>
@@ -69,18 +65,18 @@
         <div class="sidebar">
             <div class="scrollbar-inner sidebar-wrapper">
                 <div class="user">
-                    <div class="photo">
-                        <img src="assets/img/profile.jpg" alt="">
-                    </div>
                     <div class="info p-2">
-                        <a class="" data-toggle="collapse" href="#collapseExample" aria-expanded="true">
-                            Restaurant
+                        <a class="d-flex align-items-center " href="{{route('home')}}">
+                            <div class="photo">
+                                <img src="{{asset('Store/'.$company->logo)}}" alt="">
+                            </div>
+                             {{$company->name}}
                         </a>
                     </div>
                 </div>
                 <ul class="nav">
                     <li class="nav-item active">
-                        <a href="index.html">
+                        <a href="{{route('home')}}">
                             <i class="la la-dashboard"></i>
                             <p>Dashboard</p>
                             <i class="la la-bell"></i>

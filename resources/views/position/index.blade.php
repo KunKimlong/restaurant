@@ -33,8 +33,8 @@
                         <tr>
                             <td>{{ $index+1 }}</td>
                             <td>{{ $position->name }}</td>
-                            <td>{{ $position->created_at }}</td>
-                            <td>{{ $position->updated_at }}</td>
+                            <td>{{ $position->created_at_date }}</td>
+                            <td>{{ $position->updated_at_date }}</td>
                             <td>
                                 <button class="btn btn-warning" id="btn-update" data-url="{{ route('position.edit',$position->id) }}" data-action="show">{!! iconEdit() !!} Edit</button>
                                 <button class="btn btn-danger" id="btn-remove">{!! iconRemove() !!}Delete</button>

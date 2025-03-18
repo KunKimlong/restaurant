@@ -26,7 +26,7 @@
                     new branch</button>
             </div>
         </div>
-        <div class="card-body">
+        <div class="card-body" style="overflow-x: scroll">
             <table class="table text-center" id="table-show">
                 <thead>
                     <tr>
@@ -50,15 +50,15 @@
                             <td>{{ $total + $index + 1 }}</td>
                             <td><img src="{{ asset('Store/' . $branch->image) }}" alt="" class="show-image-table">
                             </td>
-                            <td>Resturant {{ convertToRoman($branch->number) }}</td>
+                            <td>{{$company_name}} {{ convertToRoman($branch->number) }}</td>
                             <td>{{ $branch->number }}</td>
                             <td>{{ $branch->street }}</td>
                             <td>{{ $branch->village }}</td>
                             <td>{{ $branch->commune }}</td>
                             <td>{{ $branch->district }}</td>
                             <td>{{ $branch->province }}</td>
-                            <td>{{ $branch->created_at }}</td>
-                            <td>{{ $branch->updated_at }}</td>
+                            <td>{{ $branch->created_at_date }}</td>
+                            <td>{{ $branch->updated_at_date }}</td>
                             <td>
                                 <button class="btn btn-warning" data-url="{{ route('branch.edit', $branch->id) }}"
                                     data-action="show" update_id="{{ $branch->id }}">{!! iconEdit() !!}

@@ -1,0 +1,37 @@
+-users{
+	- id : int, primary_key, Auto Increasement
+	- name : varchar(255)
+	- gender : char (7)
+	- profile : varchar(255)
+	- email : varchar(255)
+	- phone_number : char (10)
+	- created_at : timestamp
+}
+-news{
+	- id : int, primary_key, Auto Increasement
+	- title : varchar(255)
+	- image : varchar(255)
+	- user_id : int
+	- created_at : timestamp
+	- updated_at : timestamp
+	- viewer : int
+	- description : text
+	- type (sport, social) : char(7)
+	- category (national, international) : char(14)
+}
+
+- feedback{
+	- id : int, primary_key, Auto Increasement
+	- type (Comment, Suggestion, Question) : char (11)
+	- message : text 
+	- created_at : timestamp
+}
+
+- follow us{
+	- id : int, primary_key, Auto Increasement
+	- icon : varchar(255)
+	- label : varchar(255)
+	- created_at : timestamp
+	- updated_at : timestamp
+	- url : varchar(255)
+}
