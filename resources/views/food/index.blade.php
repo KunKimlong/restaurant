@@ -21,10 +21,12 @@
     <div class="card rounded rounded-5">
         <div class="card-header d-flex justify-between p-3">
             <div class="card-title">Food</div>
+            @if (!Gate::denies('admin'))
             <div class="right">
                 <button class="btn btn-primary text-light" data-url="{{ route('food.create') }}" data-action="show">+ Create
                     new food</button>
             </div>
+            @endif
         </div>
         <div class="card-body">
             <div class="row" id="show-card">
@@ -41,11 +43,13 @@
                                 </div>
                                 <h6 class="card-title">Created at: {{ $food->created_at_date }}</h6>
                                 <h6 class="card-title">Updated at: {{ $food->updated_at_date }}</h6>
+                                @if (!Gate::denies('admin'))
                                 <button class="btn btn-warning" data-url="{{ route('food.edit', $food->id) }}"
                                     data-action="show" update_id="{{ $food->id }}">{!! iconEdit() !!}
                                     Edit</button>
                                 <button class="btn btn-danger" id="btn-remove"
                                     data-remove-id="{{ $food->id }}">{!! iconRemove() !!}Delete</button>
+                                    @endif
                             </div>
                         </div>
                     </div>

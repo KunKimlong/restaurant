@@ -98,12 +98,14 @@
                                         <span class="link-collapse">View Staff</span>
                                     </a>
                                 </li>
+                                @if (!Gate::denies('admin'))
                                 <li>
                                     <a href="{{route('staff.create')}}">
                                         <i class="bi bi-person-square"></i>
                                         <span class="link-collapse">Add staff</span>
                                     </a>
                                 </li>
+                                @endif
                             </ul>
                         </div>
                     </li>
@@ -113,24 +115,30 @@
                             <p>Food</p>
                         </a>
                     </li>
+                    @if (!Gate::denies('admin'))
                     <li class="nav-item">
                         <a href="{{ Route('position.index') }}">
                             <i class="bi bi-person-vcard-fill"></i>
                             <p>Positions</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ Route('branch.index') }}">
-                            <i class="bi bi-person-vcard-fill"></i>
-                            <p>Branches</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ Route('show.company') }}">
-                            <i class="la la-cog"></i>
-                            <p>Setting</p>
-                        </a>
-                    </li>
+                    @endif
+                    @if (!Gate::denies('admin'))
+                        <li class="nav-item">
+                            <a href="{{ Route('branch.index') }}">
+                                <i class="bi bi-person-vcard-fill"></i>
+                                <p>Branches</p>
+                            </a>
+                        </li>
+                    @endif
+                    @if (!Gate::denies('admin'))
+                        <li class="nav-item">
+                            <a href="{{ Route('show.company') }}">
+                                <i class="la la-cog"></i>
+                                <p>Setting</p>
+                            </a>
+                        </li>
+                    @endif
                 </ul>
             </div>
         </div>
